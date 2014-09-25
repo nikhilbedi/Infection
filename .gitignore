@@ -1,5 +1,9 @@
 *.class
 
+# Back up files created by editor
+*.*~
+*~
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
