@@ -54,4 +54,12 @@ public class User {
   public Set<User> getStudents() {
     return students;
   }
+  
+  public boolean addCoach(User coach) {
+    return coaches.add(coach);
+  }
+  
+  public boolean addStudent(User student) {
+    return students.add(student);
+  }
 }
