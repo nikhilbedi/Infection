@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class User {
 
@@ -7,42 +8,35 @@ public class User {
   /*
    * A list of this user's coaches.
    */
-  private ArrayList<User> coaches;
+  private Set<User> coaches;
   
   /*
    * A list of this user's students.
    */
-  private ArrayList<User> students;
+  private Set<User> students;
   
   /*
    * The most up-to-date version the user currently owns.
    */
   private int version;
   
-  /*
-   * A unique string identifier for each user.
-   */
-   private String name;
-  
   /* Constructor
    * Allocate memory for lists.
    * Assign version to passed-in parameter.
    */
-  public User(int version, String name) {
-    this.coaches = new ArrayList<User>();
-    this.students = new ArrayList<User>();
+  public User(int version) {
+    this.coaches = new HashSet<User>();
+    this.students = new HashSet<User>();
     this.version = version;
-    this.name = name;
   }
   
-  /* Constructor
+  /* Default Constructor
    * In case we don't immediately know what the user's version is
    */
-  public User(String name) {
-    this.coaches = new ArrayList<User>();
-    this.students = new ArrayList<User>();
+  public User() {
+    this.coaches = new HashSet<User>();
+    this.students = new HashSet<User>();
     this.version = 0;
-    this.name = name;
   }
   
   public void setVersion(int version) {
@@ -53,11 +47,11 @@ public class User {
     return version;
   }
   
-  public ArrayList<User> getCoaches() {
+  public Set<User> getCoaches() {
     return coaches;
   }
   
-  public ArrayList<User> getStudents() {
+  public Set<User> getStudents() {
     return students;
   }
 }

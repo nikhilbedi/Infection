@@ -1,5 +1,6 @@
 import java.util.Set;
 import java.util.HashSet;
+import java.util.HashMap;
 
 import java.io.File;
 import java.io.FileReader;
@@ -40,8 +41,8 @@ public class Scene {
     
   }
   
-  public static Set<User> parseXmlForUsers(String filename) {
-    Set<User> userObjects = new HashSet<User>();
+  public static HashMap<String, User> parseXmlForUsers(String filename) {
+    HashMap<String, User> userObjects = new HashMap<String, User>();
     
     // Try to open a file from args. Otherwise quit the program
     try {
@@ -69,6 +70,7 @@ public class Scene {
 	  NodeList namesList = userElement.getElementsByTagName("name");
 	  Element nameElement = (Element) namesList.item(0);
 	  Node nameNode = (Node) nameElement.getChildNodes().item(0);
+	  name = nameNode.getNodeValue();
 	  System.out.println("Name: " + nameNode.getNodeValue());
 	  
 	  // Grab the version this user has (if it is >= latest_version, this user is infected!)
@@ -76,6 +78,9 @@ public class Scene {
 	  Element versionElement = (Element) versionsList.item(0);
 	  Node versionNode = (Node) versionElement.getChildNodes().item(0);
 	  System.out.println("Version: " + versionNode.getNodeValue());
+	  
+	  // Now that we have the basic info for this user, check if he/she exists already
+	  User newUserObject = checkUser(name, userObjects);
 	  
 	  // Grab all this user's students
 	  NodeList studentNodesList = userElement.getElementsByTagName("students");
@@ -118,5 +123,14 @@ public class Scene {
     }
     
     return userObjects;
+  }
+  
+  /*
+   * This will either return the user that exists in the set,
+   * or return a new user with String name after adding it to the set
+   */
+  public static User checkUser(String name, HashMap<String, User> users) {
+    //boolean exists = users.contains(new User
+    return null;
   }
 }

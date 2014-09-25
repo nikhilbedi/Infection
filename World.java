@@ -1,7 +1,7 @@
-import java.util.Set;
-import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /* Singleton Design */
 public class World {
@@ -22,14 +22,17 @@ public class World {
    */
   private int latest_version;
   
-  /* Essentially, a list of users in the world */
-  private Set<User> users;
+  /* 
+   * Essentially, a list of users in the world that are 
+   * mapped by their name/username
+   */
+  private Map<String, User> users;
 
   /* Constructor
    * Initializes World by allocating lists.
    */
   private World() {
-    users = new HashSet<User>();
+    users = new HashMap<String, User>();
     numInfections = 0;
   }
 
@@ -40,12 +43,12 @@ public class World {
     return _instance;
   }
 
-  public void setUsersList(Set<User> users) {
+  public void setUsersList(Map<String, User> users) {
     _instance.users = users;
   }
   
-  public boolean addUser(User user) {
-    return _instance.users.add(user);
+  public User putUser(String name, User user) {
+    return _instance.users.put(name, user);
   }
   
   public int getNumberOfInfections() {
@@ -72,16 +75,16 @@ public class World {
       // Add students and coaches to the list
       // in each case, if the user's version is less than the latest version,
       // then we add them to the list. Otherwise, they've already been infected.
-      ArrayList<User> students = newlyInfected.getStudents();
-      for(int i = 0; i < students.size(); i++) {
-	if(students.get(i).getVersion() < latest_version) {
-	  usersToBeInfected.addLast(students.get(i));
+      HashSet<User> students = (HashSet) newlyInfected.getStudents();
+      for(User student : students) {
+	if(student.getVersion() < latest_version) {
+	  usersToBeInfected.addLast(student);
 	}
       }
-      ArrayList<User> coaches = newlyInfected.getCoaches();
-      for(int i = 0; i < coaches.size(); i++) {
-	if(coaches.get(i).getVersion() < latest_version) {
-	  usersToBeInfected.addLast(coaches.get(i));
+      HashSet<User> coaches = (HashSet) newlyInfected.getCoaches();
+      for(User coach : coaches) {
+	if(coach.getVersion() < latest_version) {
+	  usersToBeInfected.addLast(coach);
 	}
       }
     }
