@@ -40,6 +40,10 @@ public class World {
     return _instance;
   }
 
+  public void setUsersList(Set<User> users) {
+    _instance.users = users;
+  }
+  
   public boolean addUser(User user) {
     return _instance.users.add(user);
   }

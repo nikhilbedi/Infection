@@ -7,8 +7,8 @@ JCR = java
 
 CLASSES = \
     User.java \
-    World.java
-#    Scene.java
+    World.java \
+    Scene.java
 
 default: classes
 
