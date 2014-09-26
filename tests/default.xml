@@ -1,7 +1,7 @@
 <world>
   <user>
     <name>Nikhil</name>
-    <version>1</version>
+    <version>0</version>
     <students>
       <student>Jack</student>
       <student>Samantha</student>
@@ -9,7 +9,7 @@
   </user>
   <user>
     <name>Jack</name>
-    <version>0</version>
+    <version>1</version>
   </user>
   <user>
     <name>Samantha</name>

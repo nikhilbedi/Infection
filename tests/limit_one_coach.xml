@@ -1,0 +1,76 @@
+<!-- 
+By performing a limit infection with a parameter of 3 on any user, every user
+will become infected. This is because there is only one coach, Nikhil, and that coach
+has the most infected students at 1 (A is infected at the beginning). After infecting 
+the user that was passed into the function, Nikhil will be the first chosen to infect
+his students, and he is the coach of all students.
+-->
+
+<world>
+  <user>
+    <name>Nikhil</name>
+    <version>0</version>
+    <students>
+      <student>Jack</student>
+      <student>Samantha</student>
+      <student>Stacey</student>
+      <student>A</student>
+      <student>B</student>
+      <student>C</student>
+      <student>D</student>
+      <student>E</student>
+      <student>F</student>
+      <student>G</student>
+      <student>H</student>
+      <student>I</student>
+    </students>
+  </user>
+  <user>
+    <name>Jack</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>Samantha</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>Stacey</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>A</name>
+    <version>1</version> 
+  </user>
+  <user>
+    <name>B</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>C</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>D</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>E</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>F</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>G</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>H</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>I</name>
+    <version>0</version>
+  </user>
+</world>

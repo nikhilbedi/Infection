@@ -51,6 +51,9 @@ public class World {
     for(String s : users.keySet()) {
       if(users.get(s).getVersion() == getLatestVersion()) {
 	numInfections++;
+	for(User coach : users.get(s).getCoaches()) {
+	  coach.incrementInfectedStudents();
+	}
       }
       // A user should not be allowed to have a higher version than
       // what the world considers to be the highest version. Infect
@@ -58,6 +61,9 @@ public class World {
       else if(users.get(s).getVersion() > getLatestVersion()) {
 	users.get(s).setVersion(getLatestVersion());
 	numInfections++;
+	for(User coach : users.get(s).getCoaches()) {
+	  coach.incrementInfectedStudents();
+	}
       }
     }
   }
@@ -105,9 +111,6 @@ public class World {
       for(User student : students) {
 	if(tryInfect(student))
 	  usersInfected.addLast(student);
-	  // TODO: notify coaches of student to increase their number of infected students
-	  // We don't do this in the below for loop (for each coach), because some users
-	  // in this list do not have 
       }
       HashSet<User> coaches = (HashSet) newlyInfected.getCoaches();
       for(User coach : coaches) {
@@ -120,12 +123,12 @@ public class World {
   public void limitInfection(User user, int maxInfections) {
     // Check base cases before attempting expensive iterations
     
-    // return if there are already enough infections in the world the satisfy 
+    // return if there are already enough infections in the world that satisfy 
     // the parameter
     if(numInfections >= maxInfections)
       return;
       
-    // If maxInfections > users.size(), simply infect all users.
+    // If maxInfections > users.size(), simply infect all users and return.
     if(maxInfections >= users.size()) {
       for(User u : users.values()) {
 	tryInfect(u);
@@ -133,16 +136,14 @@ public class World {
       return;
     }
       
-    // infected passed-in user if user is not already infected
+    // infect passed-in user if user is not already infected
     tryInfect(user);
-    
-    // check again 
+     
     while(numInfections < maxInfections) {
+
       // Find coach with greatest number of infected students
 	// infect all students of found coach and infect coach
-      // TODO: hurry up and bring your algorithm from your notebook here, stop making so many test cases and finish
-      // TODO: stop talking in third person
-      User coach = getCoachWithMostInfected();	// This gets an uninfected coach, with most infected students
+      User coach = getCoachWithMostInfected();	// This gets an UNINFECTED coach, with most INFECTED students
       if(coach != null) {
 	tryInfect(coach);
 	for(User student : coach.getStudents()) {
@@ -164,13 +165,8 @@ public class World {
     }
   }
   
-  public boolean removeUser(User user) {
-    // Not implemented
-    return false;
-  }
-  
   public User getUser(String name) {
-    return users.get(name);
+    return users.get(name.toLowerCase());
   }
   
   public int getNumberOfUsers() {
@@ -194,6 +190,11 @@ public class World {
       
     // Reset infections
     numInfections = 0;
+    
+    // Reset number of infected students for every coach
+    for(User user : users.values()) {
+      user.setNumInfectedStudents(0);
+    }
   }
   
   public User getCoachWithMostInfected() {
@@ -203,8 +204,11 @@ public class World {
     User bestCoach = null;
     int mostStudentsInfected = 0;
     for(User user : users.values()) {
-      if(user.getNumberOfInfectedStudents(latest_version) > mostStudentsInfected)
+      if(user.getNumInfectedStudents() > mostStudentsInfected &&
+	  user.getVersion() < getLatestVersion()) {
 	bestCoach = user;
+	mostStudentsInfected = user.getNumInfectedStudents();
+      }
     }
     
     return bestCoach;
@@ -214,13 +218,29 @@ public class World {
    * Whenever we infect a user, we also want to increment numInfections. 
    * this function is to maintain that the two go hand in hand.
    * Returns true if infection was successful. Otherwise, false
+   * On top of that, we increment the this user's coaches' number of
+   * infected students. This is useful when we perform limited infections,
    */
   private boolean tryInfect(User user) {
     if(user.getVersion() != latest_version) {
       user.setVersion(latest_version);
       numInfections++;
+      for(User coach : user.getCoaches()) {
+	coach.incrementInfectedStudents();
+      }
       return true;
     }
     return false;
+  }
+  /*
+   * Simply prints all users that are infected in this world.
+   */
+  public void printInfected() {
+    System.out.print("Users infected: ");
+    for(User user : users.values()) {
+      if(user.getVersion() == latest_version)
+	System.out.print(user.getName() + " ");
+    }
+    System.out.println();
   }
 }

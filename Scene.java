@@ -27,11 +27,12 @@ import org.xml.sax.SAXException;
 public class Scene {
   
   public static void main(String args[]) {
-    // We need at least three arguments
+    // We need four arguments for full customization
     // One for the filename of users
-    // The other for either "total" or "limit"
-    // The final for which user to target
-    // Default is "default.xml total nikhil"
+    // The other for which user to target
+    // The third for either "total" or "limit"
+    // The final for how many infections to create (only useful for limit)
+    // Default is "default.xml total nikhil 0"
   
     String filename = "tests/default.xml";
     String user = "nikhil";
@@ -64,14 +65,16 @@ public class Scene {
     
     // Calculate the infections! >:D
     if(command.equalsIgnoreCase("limit"))
-      world.limitInfection(world.getUser(user), maxInfections); 
+      world.limitInfection(world.getUser(user.toLowerCase()), maxInfections); 
     
     // default to total if the user did not offer a command/ offered an 
     // incorrect command
     else
-      world.totalInfection(world.getUser(user));
+      world.totalInfection(world.getUser(user.toLowerCase()));
       
     System.out.println("After using the " + command + " function on " + user + ", the world now consists of " + world.getNumberOfInfections() + " infection(s)");
+    
+    world.printInfected();
   }
   
   public static HashMap<String, User> parseXmlForUsers(String filename) {
@@ -171,7 +174,7 @@ public class Scene {
       return users.get(name);
       
     //Else, create a new user object and add to HashMap
-    User newUser = new User();
+    User newUser = new User(name);
     users.put(name, newUser);
     return newUser;
   }
