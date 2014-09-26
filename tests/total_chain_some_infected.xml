@@ -1,10 +1,8 @@
 <!-- 
-By performing a total infection on any user, all users are infected due to the
-fact that a student chain is established here, except for user I. I instead
-only has a coach, but this still causes an infection because it follows the coaches
-chaining.
-Essentially, there is an edge that exists between every user. Therefore, all users
-are infected.
+In the beginning, there are some that are already infected (denoted with version 1).
+This test makes sure the correct number of infections exist before and after the 
+total infection execution.  That is, it should begin with 3, and end with 13 in 
+this test case.
 -->
 
 <world>

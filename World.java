@@ -84,10 +84,7 @@ public class World {
     usersInfected.add(user);
     
     //Infect user here if not previously infected
-    if(user.getVersion() != getLatestVersion()) {
-      user.setVersion(latest_version);
-      numInfections++;
-    }
+    tryInfect(user);
     
     // Check for other users that have been infected already,
     // and add them to the usersInfected list
@@ -106,61 +103,70 @@ public class World {
       // then we add them to the list. Otherwise, they've already been infected.
       HashSet<User> students = (HashSet) newlyInfected.getStudents();
       for(User student : students) {
-	if(student.getVersion() != getLatestVersion()) {
+	if(tryInfect(student))
 	  usersInfected.addLast(student);
-	  student.setVersion(latest_version);
-	  numInfections++;
 	  // TODO: notify coaches of student to increase their number of infected students
 	  // We don't do this in the below for loop (for each coach), because some users
 	  // in this list do not have 
-	}
       }
       HashSet<User> coaches = (HashSet) newlyInfected.getCoaches();
       for(User coach : coaches) {
-	if(coach.getVersion() != getLatestVersion()) {
+	if(tryInfect(coach))
 	  usersInfected.addLast(coach);
-	  coach.setVersion(latest_version);
-	  numInfections++;
-	}
       }
     }
   }
   
   public void limitInfection(User user, int maxInfections) {
-  
+    // Check base cases before attempting expensive iterations
+    
     // return if there are already enough infections in the world the satisfy 
     // the parameter
     if(numInfections >= maxInfections)
       return;
       
-    // infected passed-in user if user is not already infected
-    if(user.getVersion() != getLatestVersion()) {
-      user.setVersion(getLatestVersion());
-      numInfections++;
+    // If maxInfections > users.size(), simply infect all users.
+    if(maxInfections >= users.size()) {
+      for(User u : users.values()) {
+	tryInfect(u);
+      }
+      return;
     }
+      
+    // infected passed-in user if user is not already infected
+    tryInfect(user);
     
     // check again 
     while(numInfections < maxInfections) {
       // Find coach with greatest number of infected students
-	// infect all students of found coach
+	// infect all students of found coach and infect coach
       // TODO: hurry up and bring your algorithm from your notebook here, stop making so many test cases and finish
       // TODO: stop talking in third person
       User coach = getCoachWithMostInfected();	// This gets an uninfected coach, with most infected students
       if(coach != null) {
-	//coach
-	for(int i = 0; i < coach.getStudents().size(); i++) {
-	  
+	tryInfect(coach);
+	for(User student : coach.getStudents()) {
+	  tryInfect(student);
 	}
       }
-      // If no coach is found, infect random user
-      break;
-      
+      // If no coach is found, break out of loop
+      else {
+	break;
+      }
+    }
+    
+    // begin infecting users until max is reached
+    for(User u : users.values()) {
+      if(numInfections >= maxInfections)
+	break;
+      else
+	tryInfect(u);
     }
   }
   
   public boolean removeUser(User user) {
     // Not implemented
-    return true;
+    return false;
   }
   
   public User getUser(String name) {
@@ -194,6 +200,27 @@ public class World {
     // first, filter out all coaches that are infected - O(n)
     // Whenever an uninfected coach is found,
       // find what number of students of his/hers are infected - O(m)
-    return null;
+    User bestCoach = null;
+    int mostStudentsInfected = 0;
+    for(User user : users.values()) {
+      if(user.getNumberOfInfectedStudents(latest_version) > mostStudentsInfected)
+	bestCoach = user;
+    }
+    
+    return bestCoach;
+  }
+  
+  /*
+   * Whenever we infect a user, we also want to increment numInfections. 
+   * this function is to maintain that the two go hand in hand.
+   * Returns true if infection was successful. Otherwise, false
+   */
+  private boolean tryInfect(User user) {
+    if(user.getVersion() != latest_version) {
+      user.setVersion(latest_version);
+      numInfections++;
+      return true;
+    }
+    return false;
   }
 }

@@ -68,6 +68,8 @@ public class User {
     return students.add(student);
   }
   
+  // TODO decide whether you will store in a variable,
+  // or will iterate to find...
   public void incrementInfectedStudents() {
     numInfectedStudents++;
   }
@@ -78,5 +80,16 @@ public class User {
   
   public int getNumInfectedStudents() {
     return numInfectedStudents;
+  }
+  
+  // Brute force, find number of students infected
+  public int getNumberOfInfectedStudents(int latest_version) {
+    int numInfected = 0;
+    for(User user : students) {
+      if(user.getVersion() == latest_version) {
+	numInfected++;
+      }
+    }
+    return numInfected;
   }
 }
