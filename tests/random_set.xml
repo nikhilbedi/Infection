@@ -2,7 +2,8 @@
 This is a randomly created scenario. This is also to show you may create your own
 XML files to attempt testing this Infection application with. A sample test for
 this file may be "java Scene tests/random_set.xml H limit 5", which will result in
-a total of 7 infections (begins at 3 infections because A, G, I are already infected).
+a total of 7 infections (begins at 3 infections because A, G, I are already infected,
+and then infects Samantha and her students since she has the most infected students).
  -->
 
 <world>

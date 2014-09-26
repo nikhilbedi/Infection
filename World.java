@@ -123,6 +123,9 @@ public class World {
   public void limitInfection(User user, int maxInfections) {
     // Check base cases before attempting expensive iterations
     
+    if(user == null)
+      return;
+    
     // return if there are already enough infections in the world that satisfy 
     // the parameter
     if(numInfections >= maxInfections)
@@ -232,6 +235,7 @@ public class World {
     }
     return false;
   }
+  
   /*
    * Simply prints all users that are infected in this world.
    */

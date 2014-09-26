@@ -40,7 +40,7 @@ public class Scene {
     int maxInfections = 0;
     try {
       filename = args[0];
-      user = args[1];
+      user = args[1].toLowerCase();
       command = args[2];
       maxInfections = Integer.parseInt(args[3]);
     }
