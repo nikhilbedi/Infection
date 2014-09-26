@@ -1,0 +1,22 @@
+<world>
+  <user>
+    <name>Nikhil</name>
+    <version>1</version>
+    <students>
+      <student>Jack</student>
+      <student>Samantha</student>
+    </students>
+  </user>
+  <user>
+    <name>Jack</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>Samantha</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>Stacey</name>
+    <version>0</version>
+  </user>
+</world>

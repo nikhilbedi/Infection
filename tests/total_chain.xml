@@ -1,0 +1,99 @@
+<!-- 
+By performing a total infection on any user, all users are infected due to the
+fact that a student chain is established here, except for user I. I instead
+only has a coach, but this still causes an infection because it follows the coaches
+chaining.
+Essentially, there is an edge that exists between every user. Therefore, all users
+are infected.
+-->
+
+<world>
+  <user>
+    <name>Nikhil</name>
+    <version>0</version>
+    <students>
+      <student>Jack</student>
+    </students>
+  </user>
+  <user>
+    <name>Jack</name>
+    <version>0</version>
+    <students>
+      <student>Samantha</student>
+    </students>
+  </user>
+  <user>
+    <name>Samantha</name>
+    <version>0</version>
+    <students>
+      <student>Stacey</student>
+    </students>
+  </user>
+  <user>
+    <name>Stacey</name>
+    <version>0</version>
+    <students>
+      <student>A</student>
+    </students>
+  </user>
+  <user>
+    <name>A</name>
+    <version>0</version>
+    <students>
+      <student>B</student>
+    </students>
+  </user>
+  <user>
+    <name>B</name>
+    <version>0</version>
+    <students>
+      <student>C</student>
+    </students>
+  </user>
+  <user>
+    <name>C</name>
+    <version>0</version>
+    <students>
+      <student>D</student>
+    </students>
+  </user>
+  <user>
+    <name>D</name>
+    <version>0</version>
+    <students>
+      <student>E</student>
+    </students>
+  </user>
+  <user>
+    <name>E</name>
+    <version>0</version>
+    <students>
+      <student>F</student>
+    </students>
+  </user>
+  <user>
+    <name>F</name>
+    <version>0</version>
+    <students>
+      <student>G</student>
+    </students>
+  </user>
+  <user>
+    <name>G</name>
+    <version>0</version>
+    <students>
+      <student>H</student>
+    </students>
+  </user>
+  <user>
+    <name>H</name>
+    <version>0</version>
+    <students>
+      <student>I</student>
+    </students>
+  </user>
+  <user>
+    <name>I</name>
+    <version>0</version>
+  </user>
+</world>

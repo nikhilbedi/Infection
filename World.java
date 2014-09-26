@@ -46,6 +46,20 @@ public class World {
 
   public void setUsersList(Map<String, User> users) {
     this.users = users;
+    
+    //initialize numInfections
+    for(String s : users.keySet()) {
+      if(users.get(s).getVersion() == getLatestVersion()) {
+	numInfections++;
+      }
+      // A user should not be allowed to have a higher version than
+      // what the world considers to be the highest version. Infect
+      // this user and reset his/her version
+      else if(users.get(s).getVersion() > getLatestVersion()) {
+	users.get(s).setVersion(getLatestVersion());
+	numInfections++;
+      }
+    }
   }
   
   public User putUser(String name, User user) {
@@ -66,38 +80,81 @@ public class World {
     if(user == null)
       return;
 
-    LinkedList<User> usersToBeInfected = new LinkedList<User>();
-    usersToBeInfected.add(user);
+    LinkedList<User> usersInfected = new LinkedList<User>();
+    usersInfected.add(user);
+    
+    //Infect user here if not previously infected
+    if(user.getVersion() != getLatestVersion()) {
+      user.setVersion(latest_version);
+      numInfections++;
+    }
     
     // Check for other users that have been infected already,
-    // and add them to the usersToBeInfected list
+    // and add them to the usersInfected list
     for(String s : users.keySet()) {
-      if(users.get(s).getVersion() >= getLatestVersion()) {
+      if(users.get(s).getVersion() == getLatestVersion()) {
 	if(users.get(s) != user)
-	  usersToBeInfected.add(users.get(s));
+	  usersInfected.add(users.get(s));
       }
     }
     
-    while(!usersToBeInfected.isEmpty()){
-      User newlyInfected = usersToBeInfected.pop();
-      newlyInfected.setVersion(latest_version);
-      numInfections++;
+    while(!usersInfected.isEmpty()){
+      User newlyInfected = usersInfected.pop();
       
       // Add students and coaches to the list
       // in each case, if the user's version is less than the latest version,
       // then we add them to the list. Otherwise, they've already been infected.
       HashSet<User> students = (HashSet) newlyInfected.getStudents();
       for(User student : students) {
-	if(student.getVersion() < getLatestVersion()) {
-	  usersToBeInfected.addLast(student);
+	if(student.getVersion() != getLatestVersion()) {
+	  usersInfected.addLast(student);
+	  student.setVersion(latest_version);
+	  numInfections++;
+	  // TODO: notify coaches of student to increase their number of infected students
+	  // We don't do this in the below for loop (for each coach), because some users
+	  // in this list do not have 
 	}
       }
       HashSet<User> coaches = (HashSet) newlyInfected.getCoaches();
       for(User coach : coaches) {
-	if(coach.getVersion() < getLatestVersion()) {
-	  usersToBeInfected.addLast(coach);
+	if(coach.getVersion() != getLatestVersion()) {
+	  usersInfected.addLast(coach);
+	  coach.setVersion(latest_version);
+	  numInfections++;
 	}
       }
+    }
+  }
+  
+  public void limitInfection(User user, int maxInfections) {
+  
+    // return if there are already enough infections in the world the satisfy 
+    // the parameter
+    if(numInfections >= maxInfections)
+      return;
+      
+    // infected passed-in user if user is not already infected
+    if(user.getVersion() != getLatestVersion()) {
+      user.setVersion(getLatestVersion());
+      numInfections++;
+    }
+    
+    // check again 
+    while(numInfections < maxInfections) {
+      // Find coach with greatest number of infected students
+	// infect all students of found coach
+      // TODO: hurry up and bring your algorithm from your notebook here, stop making so many test cases and finish
+      // TODO: stop talking in third person
+      User coach = getCoachWithMostInfected();	// This gets an uninfected coach, with most infected students
+      if(coach != null) {
+	//coach
+	for(int i = 0; i < coach.getStudents().size(); i++) {
+	  
+	}
+      }
+      // If no coach is found, infect random user
+      break;
+      
     }
   }
   
@@ -131,5 +188,12 @@ public class World {
       
     // Reset infections
     numInfections = 0;
+  }
+  
+  public User getCoachWithMostInfected() {
+    // first, filter out all coaches that are infected - O(n)
+    // Whenever an uninfected coach is found,
+      // find what number of students of his/hers are infected - O(m)
+    return null;
   }
 }

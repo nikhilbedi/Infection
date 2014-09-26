@@ -20,6 +20,11 @@ public class User {
    */
   private int version;
   
+  /*
+   * The number of infected students this user has
+   */
+  private int numInfectedStudents;
+  
   /* Constructor
    * Allocate memory for lists.
    * Assign version to passed-in parameter.
@@ -61,5 +66,17 @@ public class User {
   
   public boolean addStudent(User student) {
     return students.add(student);
+  }
+  
+  public void incrementInfectedStudents() {
+    numInfectedStudents++;
+  }
+  
+  public void setNumInfectedStudents(int value) {
+    numInfectedStudents = value;
+  }
+  
+  public int getNumInfectedStudents() {
+    return numInfectedStudents;
   }
 }

@@ -1,0 +1,62 @@
+<!-- 
+By performing a total infection on any user, only a single infection will result.
+This is because there are no students or coaches in this test, so the chosen user
+is the only one that is infected.
+Essentially, there are no edges between users. Every user is within its own
+component.
+-->
+
+<world>
+  <user>
+    <name>Nikhil</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>Jack</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>Samantha</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>Stacey</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>A</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>B</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>C</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>D</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>E</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>F</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>G</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>H</name>
+    <version>0</version>
+  </user>
+  <user>
+    <name>I</name>
+    <version>0</version>
+  </user>
+</world>

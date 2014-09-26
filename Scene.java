@@ -27,43 +27,51 @@ import org.xml.sax.SAXException;
 public class Scene {
   
   public static void main(String args[]) {
-    String filename;
+    // We need at least three arguments
+    // One for the filename of users
+    // The other for either "total" or "limit"
+    // The final for which user to target
+    // Default is "default.xml total nikhil"
+  
+    String filename = "tests/default.xml";
+    String user = "nikhil";
+    String command = "total";
+    int maxInfections = 0;
     try {
       filename = args[0];
+      user = args[1];
+      command = args[2];
+      maxInfections = Integer.parseInt(args[3]);
     }
-    catch(ArrayIndexOutOfBoundsException e) {
-      System.out.println("No arguments were provided! Exiting the program.");
-      return;
+    catch(ArrayIndexOutOfBoundsException e) { }
+    catch(NumberFormatException e) {
+      System.out.println("Please use a number for your fourth argument.");
+      maxInfections = 0;
     }
     
     // Begin creating the world.
     World world = World.getInstance();
+    
+    // Everything naturally begins at 0
+    // Most users are at 0 for their version. For the purposes of infection,
+    // Some users will be at 1 to signify they are infected.
+    // The world begins at version 0, so signify what should be the infected 
+    // State, increment the latest version to 1.
+    world.incrementLatestVersion(); // should now be 1.
     world.setUsersList(parseXmlForUsers(filename));
     
-    // Handle menu inputs
-    /*Scanner sc = new Scanner(System.in);
-    System.out.println("Continue?[Y/N]");
-    while (sc.hasNext() && (sc.nextLine().equalsIgnoreCase("y"))) {
+    System.out.println("Before any functions are run, the world consists of " + world.getNumberOfInfections() + " infection(s)");
+    
+    // Calculate the infections! >:D
+    if(command.equalsIgnoreCase("limit"))
+      world.limitInfection(world.getUser(user), maxInfections); 
+    
+    // default to total if the user did not offer a command/ offered an 
+    // incorrect command
+    else
+      world.totalInfection(world.getUser(user));
       
-      System.out.println("Enter first name");
-      String name = sc.nextLine();
-      System.out.println("Enter surname");
-      String surname = sc.nextLine();
-      System.out.println("Enter version number (" + world.getLatestVersion() + " is currently the latest)");
-      int number = 0;
-      try {
-	  number = Integer.parseInt(sc.nextLine());
-      } catch (IllegalArgumentException e) {
-	  e.printStackTrace();
-      }
-      System.out.println("Continue?[Y/N]");
-    }*/
-    
-    world.incrementLatestVersion();
-    
-    System.out.println(world.getNumberOfInfections());
-    world.totalInfection(world.getUser("stacey"));
-    System.out.println(world.getNumberOfInfections());
+    System.out.println("After using the " + command + " function on " + user + ", the world now consists of " + world.getNumberOfInfections() + " infection(s)");
   }
   
   public static HashMap<String, User> parseXmlForUsers(String filename) {
