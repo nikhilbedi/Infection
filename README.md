@@ -37,7 +37,7 @@ java Scene <filename> <username> <command> <limit_infection_value>
 ```
 * **filename**: the xml file the program should gather its data from
 * **username**: the user to target with total infection or limit infection. This value ignores case, so if you put 'KHANACADEMY', it is no different than 'khanacademy'.
-* **command**: 'limit' is the only meaningful argument for the third parameter which results in limit infection. Anything results in a total infection.
+* **command**: 'limit' is the only meaningful argument for the third parameter which results in limit infection. Anything else results in a total infection.
 * **limit_infection_value**: if 'limit' was chosen as the third argument, then this value is used to set a soft maximum for the number of infections that occur in limit infection. This defaults to 0 if nothing is provided
 
 Here are some examples of how to use this program.
