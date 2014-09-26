@@ -45,14 +45,14 @@ This will infect user 'Khan' using the total infection, using data from the file
 ```
 java Scene tests/total_chain.xml khan
 ```
-This will infect user 'Nikhil' using limit infection and only allowing a soft max of 5 infections. The file used is total_separate_components.xml.
+This will infect user 'Nikhil' using limit infection and only allow a soft max of 5 infections. The file used is total_separate_components.xml.
 ```
 java Scene tests/total_separate_components.xml nikhil limit 5
 ```
 
 Additional Features
 ----
-Within the **tests/** folder, there is an xml_creator.py.  This file can be used to generate random xml files with passed in number of users and a random set of edges (student-coach relationships). To use this file, make sure you're current working directory is under the tests/ folder and use the following format:
+Within the **tests/** folder, there is an xml_creator.py.  This file can be used to generate random xml files with passed in number of users and a random set of edges (student-coach relationships). To use this file, make sure your current working directory is under the tests/ folder and use the following format:
 ```
 python xml_creator.py <number_of_users>
 ```
